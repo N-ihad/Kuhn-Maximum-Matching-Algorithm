@@ -1,1 +1,5 @@
-# Kuhn_maximum_matching
+# Kuhn Maximum Matching Algorithm
+### Алгоритм Куна подбора максимального паросочетания между двумя множествами вершин двудольного графа
+![](https://sun9-9.userapi.com/c857632/v857632643/117825/Gqe3hUI9_9M.jpg)
+
+## Описание
