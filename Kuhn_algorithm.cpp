@@ -13,6 +13,7 @@
 #include <iterator>
 #include <random>
 #include <chrono>
+#include <functional>
 
 using namespace std;
 typedef std::chrono::high_resolution_clock Clock;
@@ -82,6 +83,29 @@ vector<vector<int>> generateBipartiteGraph(int n1, int n2) {
     return resultBipartiteGraph;
 }
 
+void checkOnTimer(int n1, int n2, int step, int iterationsNumber){
+    for (int i=0; i<iterationsNumber; ++i){
+        auto timeValues = vector<double>();
+        for (int j=0; j<10; ++j){
+            bipartiteGraph = generateBipartiteGraph(n1, n2);
+            auto t1 = Clock::now();
+            // Kuhn algorithm
+            match.assign(n2, -1);
+            for (int x=0; x<n1; ++x) {
+                usedVertices.assign(n1, false);
+                kuhnAlgorithm(x);
+            }
+            auto t2 = Clock::now();
+            timeValues.push_back((double)chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count());
+        }
+        double avrgComputedTime = accumulate(timeValues.begin(), timeValues.end(), 0)/10.0;
+        double inMiliseconds = avrgComputedTime / 1000000.0;
+        cout << n1 << " - " << fixed << inMiliseconds << endl;
+        n1 += step;
+        n2 = n1;
+    }
+}
+
 int main() {
     n1 = 5; // Number of vertices of the FIRST set of a bipartite graph
     n2 = n1; // // Number of vertices of the SECOND set of a bipartite graph
@@ -96,7 +120,8 @@ int main() {
     }
     
     
-    print2DArray(bipartiteGraph); // Printing the inital bipartite graph
+    // print2DArray(bipartiteGraph); // Printing the inital bipartite graph
+    
     
     // Printing the resulting maximum matching
     cout << "Maximum matching: " << endl;
@@ -104,6 +129,13 @@ int main() {
         if (match[i] != -1)
             cout << match[i]+1 << " - " << i+1 << endl;
     cout<<endl;
+    
+    // Checking the algorithm "speed"
+    n1 = 100;
+    n2 = n1;
+    int step = 100;
+    int iterationsNumber = 15;
+    checkOnTimer(n1, n2, step, iterationsNumber);
     
     return 0;
 }
