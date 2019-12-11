@@ -120,7 +120,7 @@ int main() {
     }
     
     
-    // print2DArray(bipartiteGraph); // Printing the inital bipartite graph
+    print2DArray(bipartiteGraph); // Printing the inital bipartite graph
     
     
     // Printing the resulting maximum matching
@@ -131,6 +131,7 @@ int main() {
     cout<<endl;
     
     // Checking the algorithm "speed"
+    cout << "Starting time complexity evaluations of algorithm for 'randomly' generated bipartite graphs" << endl;
     n1 = 100;
     n2 = n1;
     int step = 100;
